@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Course } from '../model/course';
 import { CoursesService } from '../services/courses.service';
-import { Observable, first, tap } from 'rxjs';
+import { Observable} from 'rxjs';
 
 @Component({
   selector: 'app-courses',
@@ -11,12 +11,12 @@ import { Observable, first, tap } from 'rxjs';
 })
 export class CoursesComponent implements OnInit {
 
-  courses: Observable<Course[]>;
+  courses$: Observable<Course[]>;
 
   displayedColumns = ['name', 'category'];
 
   constructor(private coursesService: CoursesService) {
-    this.courses = this.coursesService.list().pipe(first(), tap(courses => console.log(courses)));
+    this.courses$ = this.coursesService.list();
   }
 
   ngOnInit(): void {
